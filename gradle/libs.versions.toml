@@ -1,6 +1,6 @@
 [versions]
 agp = "8.12.2"
-kotlin = "2.0.21"
+kotlin = "2.2.10"
 coreKtx = "1.10.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
@@ -8,6 +8,41 @@ espressoCore = "3.5.1"
 lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
+
+coilCompose = "3.3.0"
+
+orbit = "10.0.0"
+
+kotlinxDatetime = "0.7.1"
+
+
+# ksp
+google-ksp = "2.2.10-2.0.2"
+
+# kotlin
+jetbrainsKotlinJvm = "2.2.10"
+
+# koin
+koin = "4.1.0"
+koin-compose = "4.1.0"
+
+# coroutines
+kotlinxCoroutinesAndroid = "1.10.2"
+
+# navigation
+navigationCompose = "2.9.3"
+
+# room
+roomCompiler = "2.7.2"
+roomKtx = "2.7.2"
+roomRuntime = "2.7.2"
+roomTesting = "2.7.2"
+appcompat = "1.7.0"
+material = "1.12.0"
+datastorePreferencesCoreJvm = "1.1.7"
+
+# material
+materialIconsExtendedAndroid = "1.7.8"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -25,8 +60,41 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
+
+orbit-compose = { module = "org.orbit-mvi:orbit-compose", version.ref = "orbit" }
+orbit-core = { module = "org.orbit-mvi:orbit-core", version.ref = "orbit" }
+orbit-test = { module = "org.orbit-mvi:orbit-test", version.ref = "orbit" }
+orbit-viewmodel = { module = "org.orbit-mvi:orbit-viewmodel", version.ref = "orbit" }
+
+# coroutines
+kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
+
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleRuntimeKtx" }
+androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+
+# room
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomCompiler" }
+androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomKtx" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
+androidx-room-testing = { module = "androidx.room:room-testing", version.ref = "roomTesting" }
+
+koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = 'koin' }
+koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = 'koin' }
+koin-androidx-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = 'koin' }
+koin-compose = { group = "io.insert-koin", name = "koin-compose", version.ref = 'koin-compose' }
+koin-compose-viewmodel  = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = 'koin-compose' }
+androidx-datastore-preferences-core-jvm = { group = "androidx.datastore", name = "datastore-preferences-core-jvm", version.ref = "datastorePreferencesCoreJvm" }
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+
+androidx-material-icons-extended-android = { module = "androidx.compose.material:material-icons-extended-android", version.ref = "materialIconsExtendedAndroid" }
+
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+
+google-ksp = { id = "com.google.devtools.ksp", version.ref = "google-ksp" }
 
