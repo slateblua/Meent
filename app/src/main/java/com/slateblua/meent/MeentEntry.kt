@@ -25,6 +25,17 @@ class MeentEntry : ComponentActivity() {
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
+                // to create a new branch for testing, run
+                // git checkout -b <branch-name>
+                // to see where you are right now you can use
+                // git status
+                // mostly the ide provides ui to interact with git
+                // but it's good to know the commands too
+                // to push your changes to github, you can use
+                // git add .
+                // git commit -m "your message"
+                // git push origin <branch-name>
+                // then you can create a pull request on github
             }
         }
     }
