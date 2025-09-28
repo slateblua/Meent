@@ -87,4 +87,6 @@ dependencies {
     implementation(libs.kotlinx.datetime)
 
     implementation(libs.androidx.material.icons.extended.android)
+
+    implementation(libs.androidx.datastore.preferences)
 }
