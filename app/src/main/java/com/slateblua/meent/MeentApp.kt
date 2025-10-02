@@ -15,6 +15,7 @@ class MeentApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
+        // auth test
         startKoin {
             androidContext(this@MeentApp)
             androidLogger()
