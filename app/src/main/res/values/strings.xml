@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Meent</string>
+    <string name="app_blocker_service_description">This service helps you block selected apps to improve your focus.</string>
 </resources>
