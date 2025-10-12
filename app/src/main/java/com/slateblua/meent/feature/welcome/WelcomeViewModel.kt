@@ -1,14 +1,14 @@
 package com.slateblua.meent.feature.welcome
 
 import androidx.lifecycle.ViewModel
-import com.slateblua.meent.data.datastore.UserPreferencesRepos
+import com.slateblua.meent.data.datastore.UserPreferencesRepo
 import kotlinx.coroutines.flow.first
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container
 
 class WelcomeViewModel(
-    private val userPreferencesRepos: UserPreferencesRepos
+    private val userPreferencesRepo: UserPreferencesRepo
 ) : ViewModel(), ContainerHost<OnboardingState, OnboardingSideEffect> {
 
     override val container: Container<OnboardingState, OnboardingSideEffect> = container(
@@ -18,7 +18,7 @@ class WelcomeViewModel(
     }
 
     private fun checkOnboardingStatus() = intent {
-        val completed = userPreferencesRepos.onboardingCompletedFlow.first()
+        val completed = userPreferencesRepo.onboardingCompletedFlow.first()
         if (completed) {
             reduce {
                 state.copy(isLoading = false, isOnboardingCompleted = true)
@@ -38,7 +38,7 @@ class WelcomeViewModel(
             state.copy(isLoading = true)
         }
 
-        userPreferencesRepos.updateOnboardingCompleted(true)
+        userPreferencesRepo.updateOnboardingCompleted(true)
 
         reduce {
             state.copy(isLoading = false, isOnboardingCompleted = true)

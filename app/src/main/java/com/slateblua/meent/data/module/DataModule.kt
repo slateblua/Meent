@@ -1,7 +1,7 @@
 package com.slateblua.meent.data.module
 
 import androidx.room.Room
-import com.slateblua.meent.data.datastore.UserPreferencesRepos
+import com.slateblua.meent.data.datastore.UserPreferencesRepo
 import com.slateblua.meent.data.db.AppDatabase
 import com.slateblua.meent.data.db.FocusRepo
 import com.slateblua.meent.data.db.FocusRepoImpl
@@ -27,7 +27,7 @@ val databaseModule = module {
     }
 
     single {
-        UserPreferencesRepos(androidContext())
+        UserPreferencesRepo(androidContext())
     }
 
     // Binds RoomLocalDataSource to LocalDataSource
