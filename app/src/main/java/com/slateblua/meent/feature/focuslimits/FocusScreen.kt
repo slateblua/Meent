@@ -146,7 +146,7 @@ fun FocusLimitsScreen(
                         modifier = Modifier.size(220.dp),
                         color = ProgressIndicatorDefaults.circularColor,
                         strokeWidth = 12.dp,
-                        trackColor = ProgressIndicatorDefaults.circularTrackColor,
+                        trackColor = ProgressIndicatorDefaults.circularIndeterminateTrackColor,
                         strokeCap = ProgressIndicatorDefaults.CircularDeterminateStrokeCap,
                     )
                 }
