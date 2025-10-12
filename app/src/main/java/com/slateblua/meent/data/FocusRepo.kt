@@ -1,4 +1,4 @@
-package com.slateblua.meent.data.db
+package com.slateblua.meent.data
 
 interface FocusRepo {
     // TODO: Not Implemented Yet

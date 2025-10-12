@@ -3,10 +3,10 @@ package com.slateblua.meent.data.module
 import androidx.room.Room
 import com.slateblua.meent.data.datastore.UserPreferencesRepo
 import com.slateblua.meent.data.db.AppDatabase
-import com.slateblua.meent.data.db.FocusRepo
-import com.slateblua.meent.data.db.FocusRepoImpl
-import com.slateblua.meent.data.db.LocalDataSource
-import com.slateblua.meent.data.db.RoomLocalDataSource
+import com.slateblua.meent.data.FocusRepo
+import com.slateblua.meent.data.FocusRepoImpl
+import com.slateblua.meent.data.LocalDataSource
+import com.slateblua.meent.data.RoomLocalDataSource
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.bind
 import org.koin.dsl.module

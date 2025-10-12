@@ -1,4 +1,4 @@
-package com.slateblua.meent.data.db
+package com.slateblua.meent.data
 
 data class FocusModel(
     val focusId: Long = 0,

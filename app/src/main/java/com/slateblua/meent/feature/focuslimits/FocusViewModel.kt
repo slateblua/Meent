@@ -1,7 +1,7 @@
 package com.slateblua.meent.feature.focuslimits
 
 import androidx.lifecycle.ViewModel
-import com.slateblua.meent.data.db.FocusRepo
+import com.slateblua.meent.data.FocusRepo
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
 import org.orbitmvi.orbit.viewmodel.container

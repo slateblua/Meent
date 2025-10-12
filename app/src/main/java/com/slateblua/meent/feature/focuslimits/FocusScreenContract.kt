@@ -1,6 +1,6 @@
 package com.slateblua.meent.feature.focuslimits
 
-import com.slateblua.meent.data.db.FocusStatus
+import com.slateblua.meent.data.FocusStatus
 
 data class FocusUiState(
     val remainingTimeMillis: Long = 0,

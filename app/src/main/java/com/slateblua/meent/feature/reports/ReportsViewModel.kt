@@ -1,7 +1,7 @@
 package com.slateblua.meent.feature.reports
 
 import androidx.lifecycle.ViewModel
-import com.slateblua.meent.data.db.FocusRepo
+import com.slateblua.meent.data.FocusRepo
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost

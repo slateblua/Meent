@@ -1,4 +1,4 @@
-package com.slateblua.meent.data.db
+package com.slateblua.meent.data
 
 import kotlinx.coroutines.flow.Flow
 
