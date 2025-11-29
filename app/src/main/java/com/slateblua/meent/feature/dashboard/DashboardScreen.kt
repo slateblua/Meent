@@ -30,8 +30,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.slateblua.meent.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -80,7 +82,9 @@ fun DashboardScreen(
                 modifier = Modifier.weight(1f),
                 streakDays = uiState.bestStreak,
                 backgroundColor = MaterialTheme.colorScheme.tertiaryFixed,
-                text = "Best Streak"
+                text = "Best Streak",
+                // Sample Icon
+                icon = painterResource(id = R.drawable.ic_launcher_foreground)
             )
         }
     }
