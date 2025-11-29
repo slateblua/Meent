@@ -150,9 +150,6 @@ fun ReportsScreen(
                         )
                     }
 
-                    // Streak card
-                    StreakCard(uiState = uiState)
-
                     // Weekly breakdown
                     WeeklyBreakdownCard(uiState = uiState)
                 }
@@ -223,44 +220,6 @@ private fun TimeRangeButton(
             color = if (selected) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSurfaceVariant,
             fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
         )
-    }
-}
-
-@Composable
-private fun StreakCard(uiState: ReportsState) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.secondaryContainer
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Text(
-                    text = "Current Streak",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "Best: ${uiState.bestStreak} days",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                )
-            }
-            Text(
-                text = "${uiState.currentStreak} days",
-                style = MaterialTheme.typography.headlineMedium,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.secondary
-            )
-        }
     }
 }
 
