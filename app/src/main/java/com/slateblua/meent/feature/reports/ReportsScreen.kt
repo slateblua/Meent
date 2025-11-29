@@ -15,7 +15,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.TrendingDown
 import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Schedule
@@ -39,7 +38,6 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -90,7 +88,6 @@ fun ReportsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(scaffoldPadding)
                     .padding(16.dp)
                     .verticalScroll(rememberScrollState()),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -140,7 +137,7 @@ fun ReportsScreen(
                         horizontalArrangement = Arrangement.spacedBy(12.dp)
                     ) {
                         AnalyticsCard(
-                            title = "Avg Duration",
+                            title = "Average Duration",
                             value = formatMinutes(uiState.averageSessionDuration),
                             icon = Icons.Filled.Schedule,
                             modifier = Modifier.weight(1f)
@@ -158,12 +155,6 @@ fun ReportsScreen(
 
                     // Weekly breakdown
                     WeeklyBreakdownCard(uiState = uiState)
-
-                    // Trend indicator
-                    TrendCard(uiState = uiState)
-
-                    // Time-specific metrics
-                    TimeSpecificMetrics(uiState = uiState)
                 }
             }
         }
@@ -174,7 +165,7 @@ fun ReportsScreen(
 private fun HeaderSection(uiState: ReportsState, viewModel: ReportsViewModel) {
     Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
         Text(
-            text = "Your Focus Analytics",
+            text = "Your Focus Reports",
             style = MaterialTheme.typography.headlineMedium,
             fontWeight = FontWeight.Bold
         )
@@ -253,7 +244,7 @@ private fun StreakCard(uiState: ReportsState) {
         ) {
             Column {
                 Text(
-                    text = "🔥 Current Streak",
+                    text = "Current Streak",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
@@ -347,135 +338,6 @@ private fun DayBreakdownBar(day: String, count: Int) {
             style = MaterialTheme.typography.labelSmall,
             modifier = Modifier.width(20.dp),
             fontWeight = FontWeight.Bold
-        )
-    }
-}
-
-@Composable
-private fun TrendCard(uiState: ReportsState) {
-    Card(
-        modifier = Modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = if (uiState.sessionTrend >= 0) {
-                MaterialTheme.colorScheme.tertiaryContainer
-            } else {
-                MaterialTheme.colorScheme.errorContainer
-            }
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Column {
-                Text(
-                    text = "Weekly Trend",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
-                Text(
-                    text = "vs last week",
-                    style = MaterialTheme.typography.bodySmall
-                )
-            }
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Icon(
-                    imageVector = if (uiState.sessionTrend >= 0) Icons.AutoMirrored.Filled.TrendingUp else Icons.AutoMirrored.Filled.TrendingDown,
-                    contentDescription = "Trend",
-                    tint = if (uiState.sessionTrend >= 0) Color.Green else Color.Red,
-                    modifier = Modifier.padding(end = 4.dp)
-                )
-                Text(
-                    text = "%+.0f%%".format(uiState.sessionTrend),
-                    style = MaterialTheme.typography.headlineSmall,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-    }
-}
-
-@Composable
-private fun TimeSpecificMetrics(uiState: ReportsState) {
-    when (uiState.selectedTimeRange) {
-        Range.WEEK -> {
-            WeekMetricsCards(uiState)
-        }
-        Range.MONTH -> {
-            MonthMetricsCards(uiState)
-        }
-        Range.ALL_TIME -> {
-            AllTimeMetricsCards(uiState)
-        }
-    }
-}
-
-@Composable
-private fun WeekMetricsCards(uiState: ReportsState) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        AnalyticsCard(
-            title = "This Week",
-            value = formatMinutes(uiState.weeklyFocusedMinutes),
-            icon = Icons.Filled.Timer,
-            modifier = Modifier.weight(1f)
-        )
-        AnalyticsCard(
-            title = "Today",
-            value = uiState.todaySessionsCount.toString(),
-            icon = Icons.Filled.Favorite,
-            modifier = Modifier.weight(1f)
-        )
-    }
-}
-
-@Composable
-private fun MonthMetricsCards(uiState: ReportsState) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        AnalyticsCard(
-            title = "This Month",
-            value = formatMinutes(uiState.monthlyFocusedMinutes),
-            icon = Icons.Filled.Timer,
-            modifier = Modifier.weight(1f)
-        )
-        AnalyticsCard(
-            title = "Sessions",
-            value = uiState.monthlySessionsCount.toString(),
-            icon = Icons.Filled.Favorite,
-            modifier = Modifier.weight(1f)
-        )
-    }
-}
-
-@Composable
-private fun AllTimeMetricsCards(uiState: ReportsState) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(12.dp)
-    ) {
-        AnalyticsCard(
-            title = "Total Time",
-            value = formatMinutes(uiState.totalFocusedMinutes),
-            icon = Icons.Filled.Timer,
-            modifier = Modifier.weight(1f)
-        )
-        AnalyticsCard(
-            title = "All Sessions",
-            value = uiState.totalSessions.toString(),
-            icon = Icons.Filled.Favorite,
-            modifier = Modifier.weight(1f)
         )
     }
 }
