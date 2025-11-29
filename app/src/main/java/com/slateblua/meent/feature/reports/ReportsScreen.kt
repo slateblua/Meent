@@ -15,11 +15,11 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.TrendingDown
+import androidx.compose.material.icons.automirrored.filled.TrendingUp
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material.icons.filled.Timer
-import androidx.compose.material.icons.filled.TrendingDown
-import androidx.compose.material.icons.filled.TrendingUp
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -33,7 +33,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,12 +44,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.slateblua.meent.feature.dashboard.DashboardViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
-import kotlin.collections.component1
-import kotlin.collections.component2
 
 @Composable
 fun ReportsScreen(
@@ -73,8 +69,6 @@ fun ReportsScreen(
                         )
                     }
                 }
-
-                else -> {}
             }
         }
     }
@@ -154,7 +148,7 @@ fun ReportsScreen(
                         AnalyticsCard(
                             title = "Longest Session",
                             value = formatMinutes(uiState.longestSession),
-                            icon = Icons.Filled.TrendingUp,
+                            icon = Icons.AutoMirrored.Filled.TrendingUp,
                             modifier = Modifier.weight(1f)
                         )
                     }
@@ -393,7 +387,7 @@ private fun TrendCard(uiState: ReportsState) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    imageVector = if (uiState.sessionTrend >= 0) Icons.Filled.TrendingUp else Icons.Filled.TrendingDown,
+                    imageVector = if (uiState.sessionTrend >= 0) Icons.AutoMirrored.Filled.TrendingUp else Icons.AutoMirrored.Filled.TrendingDown,
                     contentDescription = "Trend",
                     tint = if (uiState.sessionTrend >= 0) Color.Green else Color.Red,
                     modifier = Modifier.padding(end = 4.dp)
