@@ -1,13 +1,11 @@
 package com.slateblua.meent.feature.welcome
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -118,19 +116,6 @@ private fun OnboardingContent(
 
         Spacer(modifier = Modifier.height(12.dp))
 
-
-        Row(
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            StepDot(active = true)
-            StepDot(active = false)
-            StepDot(active = false)
-        }
-
-        Spacer(modifier = Modifier.height(24.dp))
-
-
         Button(
             onClick = onGetStarted,
             modifier = Modifier
@@ -146,6 +131,7 @@ private fun OnboardingContent(
 
 
         Text(
+            // Should we add any?
             text = "By continuing, you agree to our Terms & Privacy Policy",
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(top = 12.dp),
@@ -189,33 +175,5 @@ private fun FeatureItem(
                 )
             }
         }
-    }
-}
-
-@Composable
-private fun StepDot(active: Boolean) {
-    Box(
-        modifier = Modifier
-            .padding(horizontal = 4.dp)
-            .size(if (active) 12.dp else 8.dp)
-            .clip(RoundedCornerShape(50))
-            .then(
-                if (active)
-                    Modifier
-                        .padding(1.dp)
-                        .size(12.dp)
-                else Modifier
-            ),
-        contentAlignment = Alignment.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .size(if (active) 12.dp else 8.dp)
-                .clip(RoundedCornerShape(50))
-                .background(
-                    if (active) MaterialTheme.colorScheme.primary
-                    else MaterialTheme.colorScheme.outlineVariant
-                )
-        )
     }
 }
