@@ -238,10 +238,10 @@ class DashboardViewModel(
     private fun isConsecutiveDay(day1: String, day2: String): Boolean {
         return try {
             val cal1 = Calendar.getInstance().apply {
-                set(day1.substring(0, 4).toInt(), day1.substring(5, 7).toInt() - 1, day1.substring(8, 10).toInt())
+                set(day1.take(4).toInt(), day1.substring(5, 7).toInt() - 1, day1.substring(8, 10).toInt())
             }
             val cal2 = Calendar.getInstance().apply {
-                set(day2.substring(0, 4).toInt(), day2.substring(5, 7).toInt() - 1, day2.substring(8, 10).toInt())
+                set(day2.take(4).toInt(), day2.substring(5, 7).toInt() - 1, day2.substring(8, 10).toInt())
             }
             cal1.add(Calendar.DAY_OF_YEAR, 1)
             cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR) &&
