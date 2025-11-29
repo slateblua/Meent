@@ -15,7 +15,6 @@ data class ReportsState(
     val monthlyFocusedMinutes: Int = 0,
     val currentStreak: Int = 0, // Days in a row with at least 1 session
     val bestStreak: Int = 0,
-    val sessionTrend: Float = 0f, // Percentage change: positive = more sessions this week vs last
     val dailyAverageThisWeek: Int = 0, // Average sessions per day this week
     val dailyBreakdown: Map<String, Int> = emptyMap(), // Day name to session count
     val selectedTimeRange: Range = Range.WEEK,

@@ -43,7 +43,6 @@ class ReportsViewModel(
                             monthlyFocusedMinutes = 0,
                             currentStreak = 0,
                             bestStreak = 0,
-                            sessionTrend = 0f,
                             dailyAverageThisWeek = 0,
                             dailyBreakdown = emptyMap()
                         )
@@ -73,17 +72,6 @@ class ReportsViewModel(
                     val monthSessions = sessions.filter { it.start in monthStart..monthEnd }
                     val monthlySessionsCount = monthSessions.size
                     val monthlyFocusedMinutes = monthSessions.sumOf { (it.end - it.start) / (1000 * 60) }.toInt()
-
-                    // Session trend (this week vs last week)
-                    val lastWeekStart = weekStart - (7 * 24 * 60 * 60 * 1000)
-                    val lastWeekEnd = weekStart - 1
-                    val lastWeekSessions = sessions.count { it.start in lastWeekStart..lastWeekEnd }
-                    val sessionTrend = if (lastWeekSessions > 0) {
-                        ((weeklySessionsCount - lastWeekSessions).toFloat() / lastWeekSessions) * 100
-                    } else {
-                        if (weeklySessionsCount > 0) 100f else 0f
-                    }
-
                     // Streak calculation
                     val (currentStreak, bestStreak) = calculateStreaks(sessions)
 
@@ -104,7 +92,6 @@ class ReportsViewModel(
                             monthlyFocusedMinutes = monthlyFocusedMinutes,
                             currentStreak = currentStreak,
                             bestStreak = bestStreak,
-                            sessionTrend = sessionTrend,
                             dailyAverageThisWeek = dailyAverageThisWeek,
                             dailyBreakdown = dailyBreakdown
                         )
