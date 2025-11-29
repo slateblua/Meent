@@ -1,17 +1,32 @@
 package com.slateblua.meent.feature.reports
 
-import com.slateblua.meent.data.db.FocusEntry
-import java.util.Calendar
-
-// State for the Reports screen
 data class ReportsState(
-    val selectedDate: Calendar = Calendar.getInstance(),
-    val selectedDateFormatted: String = "", // Will be derived from selectedDate
-    val sessionsForSelectedDate: List<FocusEntry> = emptyList(),
-    val isLoading: Boolean = false
+    val isLoading: Boolean = false,
+    // Basic metrics
+    val totalSessions: Int = 0,
+    val totalFocusedMinutes: Int = 0,
+    val averageSessionDuration: Int = 0,
+    val todaySessionsCount: Int = 0,
+    val longestSession: Int = 0,
+    // Advanced metrics
+    val weeklySessionsCount: Int = 0,
+    val weeklyFocusedMinutes: Int = 0,
+    val monthlySessionsCount: Int = 0,
+    val monthlyFocusedMinutes: Int = 0,
+    val currentStreak: Int = 0, // Days in a row with at least 1 session
+    val bestStreak: Int = 0,
+    val sessionTrend: Float = 0f, // Percentage change: positive = more sessions this week vs last
+    val dailyAverageThisWeek: Int = 0, // Average sessions per day this week
+    val dailyBreakdown: Map<String, Int> = emptyMap(), // Day name to session count
+    val selectedTimeRange: Range = Range.WEEK,
 )
 
-// Side Effects for the Reports screen
+enum class Range {
+    WEEK,
+    MONTH,
+    ALL_TIME
+}
+
 sealed class ReportsSideEffect {
     data class ShowError(val message: String) : ReportsSideEffect()
 }
