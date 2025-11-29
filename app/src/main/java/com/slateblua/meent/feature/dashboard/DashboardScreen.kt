@@ -65,14 +65,23 @@ fun DashboardScreen(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = modifier
     ) { scaffoldPadding ->
-        Row (
+        Row(
             modifier = Modifier
                 .padding(scaffoldPadding)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            StreakCard(modifier = Modifier.weight(1f), streakDays = uiState.streakCount, backgroundColor = MaterialTheme.colorScheme.primary)
-            StreakCard(modifier = Modifier.weight(1f), streakDays = uiState.bestStreak, backgroundColor = MaterialTheme.colorScheme.tertiaryFixed, text = "Best Streak")
+            StreakCard(
+                modifier = Modifier.weight(1f),
+                streakDays = uiState.streakCount,
+                backgroundColor = MaterialTheme.colorScheme.primary
+            )
+            StreakCard(
+                modifier = Modifier.weight(1f),
+                streakDays = uiState.bestStreak,
+                backgroundColor = MaterialTheme.colorScheme.tertiaryFixed,
+                text = "Best Streak"
+            )
         }
     }
 
