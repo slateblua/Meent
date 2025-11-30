@@ -2,8 +2,8 @@ package com.slateblua.meent.feature.dashboard
 
 data class DashboardState(
     val isLoading: Boolean = false,
-    // We can add other relevant dashboard information here later,
-    // e.g., daily goals, progress, etc.
+    val streakCount: Int = 0,
+    val bestStreak: Int = 0,
 )
 
 sealed class DashboardSideEffect {
