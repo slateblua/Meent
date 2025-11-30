@@ -17,13 +17,13 @@ graph TD
         UserPrefs <--> DS
     end
 
-    subgraph AppHost ["App NavHost (AppPan)"]
+    subgraph AppHost ["App NavHost"]
         direction TB
         Onboarding(Onboarding Screen)
         Main(Main App Content)
     end
     
-    AppHost -- start --> Onboarding
+    AppHost ---> Onboarding
     Onboarding -- "Navigate(MAIN_APP_CONTENT)" --> Main
     
     %% ViewModels
@@ -35,7 +35,7 @@ graph TD
         PrefsVM(PreferencesViewModel)
     end
 
-    subgraph MainContent ["Main App Content NavHost (AppContentPan)"]
+    subgraph MainContent ["Main App Content NavHost"]
         direction TB
         Dashboard
         Focus(Focus Limits)
