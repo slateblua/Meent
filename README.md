@@ -44,15 +44,9 @@ graph TD
     end
     
     Main -- start --> Dashboard
-    
-    %% Navigation connections
-    Dashboard <-- Bottom Bar --> Focus
-    Focus <-- Bottom Bar --> Reports
-    Reports <-- Bottom Bar --> Dashboard
-    
-    Dashboard -- Top Bar --> Settings
-    Focus -- Top Bar --> Settings
-    Reports -- Top Bar --> Settings
+    Main --> Focus
+    Main --> Reports
+    Main --> Settings
 
     %% ViewModel to View connections
     Onboarding --> WelcomeVM
