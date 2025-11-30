@@ -9,6 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.slateblua.meent.core.MAIN_APP_CONTENT
 import com.slateblua.meent.core.ONBOARDING
@@ -21,7 +22,7 @@ fun OnboardingScreen(
     modifier: Modifier = Modifier,
     viewModel: WelcomeViewModel = koinViewModel()
 ) {
-    val uiState by viewModel.container.stateFlow.collectAsState()
+    val uiState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
 
 
     LaunchedEffect(Unit) {
