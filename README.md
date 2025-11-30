@@ -16,12 +16,6 @@ graph TD
         FocusRepo <--> DB
         UserPrefs <--> DS
     end
-
-    subgraph AppHost ["App NavHost"]
-        direction TB
-        Onboarding(Onboarding Screen)
-        Main(Main App Content)
-    end
     
     AppHost ---> Onboarding
     Onboarding -- "Navigate(MAIN_APP_CONTENT)" --> Main
