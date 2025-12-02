@@ -2,6 +2,7 @@ package com.slateblua.meent.feature.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -29,8 +30,11 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.White
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.slateblua.meent.R
@@ -48,7 +52,7 @@ fun DashboardScreen(
 
     val uiState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
 
-    LaunchedEffect(viewModel.container.sideEffectFlow) {
+    LaunchedEffect(Unit) {
         viewModel.container.sideEffectFlow.collectLatest {
             when (it) {
                 is DashboardSideEffect.ShowError -> {
@@ -66,23 +70,35 @@ fun DashboardScreen(
     Scaffold(
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
         modifier = modifier
-    ) { scaffoldPadding ->
+    ) { padding ->
         Row(
             modifier = Modifier
-                .padding(scaffoldPadding)
+                .padding(padding)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(12.dp)
         ) {
+
             StreakCard(
                 modifier = Modifier.weight(1f),
                 streakDays = uiState.streakCount,
-                backgroundColor = MaterialTheme.colorScheme.primary
+                text = "Current Streak",
+                backgroundColor = MaterialTheme.colorScheme.primary,
+                streakIcon = painterResource(id = R.drawable.stat),
+                dropShadow = false,
+                dropShadowColor = Color.Transparent,
+                imageAlignment = Alignment.BottomStart
             )
+
+
             StreakCard(
                 modifier = Modifier.weight(1f),
                 streakDays = uiState.bestStreak,
-                backgroundColor = MaterialTheme.colorScheme.tertiaryFixed,
+                backgroundColor = Color(0xFF448AFF),
                 text = "Best Streak",
+                streakIcon = painterResource(id = R.drawable.fire),
+                dropShadowColor = Color(0xFF0A2F8B), // deeper blue outline
+                dropShadow = true,
+                imageAlignment = Alignment.BottomEnd
             )
         }
     }
@@ -94,10 +110,13 @@ fun DashboardScreen(
 fun StreakCard(
     streakDays: Int,
     modifier: Modifier = Modifier,
+    dropShadowColor: Color = Color(0xFF0D47A1),
     backgroundColor: Color = Color(0xFF111111),
-    textColor: Color = Color.White,
-    icon: Painter? = null,
-    text: String = "Current Streak"
+    textColor: Color = White,
+    streakIcon: Painter? = null,
+    text: String = "Current Streak",
+    dropShadow: Boolean = true,
+    imageAlignment: Alignment = Alignment.BottomEnd
 ) {
     Card(
         modifier = modifier
@@ -108,7 +127,9 @@ fun StreakCard(
         elevation = CardDefaults.cardElevation(4.dp)
     ) {
         Column(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
@@ -127,20 +148,34 @@ fun StreakCard(
             Text(
                 text,
                 color = textColor.copy(alpha = 0.8f),
-                style = MaterialTheme.typography.bodyMedium
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
         }
 
-        // Illustration slot
-        if (icon != null) {
-            Image(
-                alignment = Alignment.BottomEnd,
-                painter = icon,
-                contentDescription = null,
+
+        if (streakIcon != null) {
+            Box(
                 modifier = Modifier
-                    .padding(8.dp)
-                    .size(60.dp)
-            )
+                    .fillMaxWidth()
+                    .padding(8.dp),
+                contentAlignment = imageAlignment
+            ) {
+                if (dropShadow) {
+                    Image(
+                        painter = streakIcon,
+                        contentDescription = "Outline",
+                        modifier = Modifier.size(105.dp),
+                        colorFilter = ColorFilter.tint(dropShadowColor)
+                    )
+                }
+                Image(
+                    painter = streakIcon,
+                    contentDescription = "Image",
+                    modifier = Modifier.size(if (dropShadow) 84.dp else 105.dp)
+                )
+            }
         }
     }
 }
