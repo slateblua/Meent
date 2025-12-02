@@ -83,8 +83,6 @@ fun DashboardScreen(
                 streakDays = uiState.bestStreak,
                 backgroundColor = MaterialTheme.colorScheme.tertiaryFixed,
                 text = "Best Streak",
-                // Sample Icon
-                icon = painterResource(id = R.drawable.ic_launcher_foreground)
             )
         }
     }

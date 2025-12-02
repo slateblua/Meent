@@ -2,8 +2,10 @@ package com.slateblua.meent.core.services
 
 import android.accessibilityservice.AccessibilityService
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.util.Log
 import android.view.accessibility.AccessibilityEvent
+import com.slateblua.meent.feature.appblocker.BlockedActivity
 
 @SuppressLint("AccessibilityPolicy")
 class AppBlockerService : AccessibilityService() {
@@ -21,9 +23,12 @@ class AppBlockerService : AccessibilityService() {
             if (packageName != null && blockedApps.contains(packageName)) {
                 Log.i("AppBlockerService", "Blocking app: $packageName")
 
-                // Navigate to the home screen to block the app usage
-                // Add block layer screen later
-                performGlobalAction(GLOBAL_ACTION_HOME)
+                // Start the BlockedActivity
+                val intent = Intent(this, BlockedActivity::class.java).apply {
+                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                }
+
+                startActivity(intent)
             }
         }
     }

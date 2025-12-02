@@ -9,6 +9,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.rememberNavController
 import com.slateblua.meent.feature.preferences.PreferencesViewModel
 import com.slateblua.meent.core.AppPan
+import com.slateblua.meent.core.services.AppBlockerService
 import com.slateblua.meent.ui.theme.MeentTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -27,5 +28,10 @@ class MeentEntry : ComponentActivity() {
                 AppPan(appNavController = appNavController)
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        AppBlockerService.blockedApps.clear()
     }
 }
