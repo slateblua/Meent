@@ -52,7 +52,7 @@ fun DashboardScreen(
 
     val uiState by viewModel.container.stateFlow.collectAsStateWithLifecycle()
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(viewModel.container.sideEffectFlow) {
         viewModel.container.sideEffectFlow.collectLatest {
             when (it) {
                 is DashboardSideEffect.ShowError -> {
