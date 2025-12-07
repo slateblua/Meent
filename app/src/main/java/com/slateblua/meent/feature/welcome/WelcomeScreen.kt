@@ -103,7 +103,7 @@ private fun OnboardingContent(
     onGetStarted: () -> Unit
 ) {
     var showContent by remember { mutableStateOf(false) }
-    
+
     LaunchedEffect(Unit) {
         delay(100)
         showContent = true
@@ -117,7 +117,7 @@ private fun OnboardingContent(
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Spacer(modifier = Modifier.height(24.dp))
-        
+
         AnimatedVisibility(
             visible = showContent,
             enter = fadeIn(tween(800)) + slideInVertically(tween(800)) { 50 }
@@ -137,9 +137,9 @@ private fun OnboardingContent(
                         tint = MaterialTheme.colorScheme.primary
                     )
                 }
-                
+
                 Spacer(modifier = Modifier.height(32.dp))
-                
+
                 Text(
                     text = "Welcome to Meent",
                     style = MaterialTheme.typography.headlineMedium.copy(
@@ -148,9 +148,9 @@ private fun OnboardingContent(
                     ),
                     textAlign = TextAlign.Center
                 )
-                
+
                 Spacer(modifier = Modifier.height(8.dp))
-                
+
                 Text(
                     text = "Master your focus, own your time.",
                     style = MaterialTheme.typography.bodyLarge.copy(
@@ -165,7 +165,12 @@ private fun OnboardingContent(
 
         AnimatedVisibility(
             visible = showContent,
-            enter = fadeIn(tween(800, delayMillis = 300)) + slideInVertically(tween(800, delayMillis = 300)) { 50 }
+            enter = fadeIn(tween(800, delayMillis = 300)) + slideInVertically(
+                tween(
+                    800,
+                    delayMillis = 300
+                )
+            ) { 50 }
         ) {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 FeatureItem(
@@ -186,7 +191,12 @@ private fun OnboardingContent(
 
         AnimatedVisibility(
             visible = showContent,
-            enter = fadeIn(tween(800, delayMillis = 600)) + slideInVertically(tween(800, delayMillis = 600)) { 50 }
+            enter = fadeIn(tween(800, delayMillis = 600)) + slideInVertically(
+                tween(
+                    800,
+                    delayMillis = 600
+                )
+            ) { 50 }
         ) {
             Button(
                 onClick = onGetStarted,
@@ -209,7 +219,7 @@ private fun OnboardingContent(
                 )
             }
         }
-        
+
         Spacer(modifier = Modifier.height(24.dp))
     }
 }
@@ -246,7 +256,7 @@ private fun FeatureItem(
                     )
                 }
             }
-            
+
             Spacer(modifier = Modifier.width(16.dp))
 
             Column {
