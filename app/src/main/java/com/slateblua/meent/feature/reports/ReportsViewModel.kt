@@ -1,7 +1,6 @@
 package com.slateblua.meent.feature.reports
 
 import androidx.lifecycle.ViewModel
-import com.slateblua.meent.data.FocusModel
 import com.slateblua.meent.data.FocusRepo
 import org.orbitmvi.orbit.Container
 import org.orbitmvi.orbit.ContainerHost
@@ -35,14 +34,11 @@ class ReportsViewModel(
                             totalSessions = 0,
                             totalFocusedMinutes = 0,
                             averageSessionDuration = 0,
-                            todaySessionsCount = 0,
                             longestSession = 0,
                             weeklySessionsCount = 0,
                             weeklyFocusedMinutes = 0,
                             monthlySessionsCount = 0,
                             monthlyFocusedMinutes = 0,
-                            dailyAverageThisWeek = 0,
-                            dailyBreakdown = emptyMap()
                         )
                     }
                 } else {
@@ -71,8 +67,6 @@ class ReportsViewModel(
                     val monthlySessionsCount = monthSessions.size
                     val monthlyFocusedMinutes = monthSessions.sumOf { (it.end - it.start) / (1000 * 60) }.toInt()
 
-                    // Daily breakdown for the week
-                    val dailyBreakdown = calculateDailyBreakdown(weekSessions, weekStart)
 
                     reduce {
                         state.copy(
@@ -80,14 +74,11 @@ class ReportsViewModel(
                             totalSessions = totalSessions,
                             totalFocusedMinutes = totalMinutes,
                             averageSessionDuration = averageDuration,
-                            todaySessionsCount = todaySessionCount,
                             longestSession = longestSession,
                             weeklySessionsCount = weeklySessionsCount,
                             weeklyFocusedMinutes = weeklyFocusedMinutes,
                             monthlySessionsCount = monthlySessionsCount,
                             monthlyFocusedMinutes = monthlyFocusedMinutes,
-                            dailyAverageThisWeek = dailyAverageThisWeek,
-                            dailyBreakdown = dailyBreakdown
                         )
                     }
                 }
@@ -153,22 +144,5 @@ class ReportsViewModel(
         val end = cal.timeInMillis
 
         return Pair(start, end)
-    }
-
-    private fun calculateDailyBreakdown(sessions: List<FocusModel>, weekStart: Long): Map<String, Int> {
-        val breakdown = mutableMapOf<String, Int>()
-        val dayNames = arrayOf("Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat")
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = weekStart
-
-        for (i in 0..6) {
-            val dayName = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1]
-            val (dayStart, dayEnd) = getDateRange(calendar, 0)
-            val count = sessions.count { it.start in dayStart..dayEnd }
-            breakdown[dayName] = count
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
-        return breakdown
     }
 }
