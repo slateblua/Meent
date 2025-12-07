@@ -1,25 +1,26 @@
 package com.slateblua.meent.feature.dashboard
 
-import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.LocalFireDepartment
+import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.LocalFireDepartment
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,22 +30,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.White
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.painter.Painter
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.slateblua.meent.R
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun DashboardScreen(
-    modifier: Modifier = Modifier,
     viewModel: DashboardViewModel = koinViewModel()
 ) {
     val snackbarHostState = remember { SnackbarHostState() }
@@ -67,115 +64,91 @@ fun DashboardScreen(
         }
     }
 
-    Scaffold(
-        snackbarHost = { SnackbarHost(hostState = snackbarHostState) },
-        modifier = modifier
-    ) { padding ->
-        Row(
-            modifier = Modifier
-                .padding(padding)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(12.dp)
-        ) {
+    Column(
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize()
+    ) {
+        Text(
+            text = "Dashboard",
+            style = MaterialTheme.typography.headlineMedium,
+            fontWeight = FontWeight.Bold,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
 
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
             StreakCard(
                 modifier = Modifier.weight(1f),
                 streakDays = uiState.streakCount,
-                text = "Current Streak",
-                backgroundColor = MaterialTheme.colorScheme.primary,
-                streakIcon = painterResource(id = R.drawable.stat),
-                dropShadow = false,
-                dropShadowColor = Color.Transparent,
-                imageAlignment = Alignment.BottomStart
+                label = "Current Streak",
+                icon = Icons.Filled.LocalFireDepartment,
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
             )
-
-
             StreakCard(
                 modifier = Modifier.weight(1f),
                 streakDays = uiState.bestStreak,
-                backgroundColor = Color(0xFF448AFF),
-                text = "Best Streak",
-                streakIcon = painterResource(id = R.drawable.fire),
-                dropShadowColor = Color(0xFF0A2F8B), // deeper blue outline
-                dropShadow = true,
-                imageAlignment = Alignment.BottomEnd
+                label = "Best Streak",
+                icon = Icons.Filled.EmojiEvents,
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                contentColor = MaterialTheme.colorScheme.onSecondaryContainer,
             )
         }
     }
-
 }
-
 
 @Composable
 fun StreakCard(
-    streakDays: Int,
     modifier: Modifier = Modifier,
-    dropShadowColor: Color = Color(0xFF0D47A1),
-    backgroundColor: Color = Color(0xFF111111),
-    textColor: Color = White,
-    streakIcon: Painter? = null,
-    text: String = "Current Streak",
-    dropShadow: Boolean = true,
-    imageAlignment: Alignment = Alignment.BottomEnd
+    streakDays: Int,
+    label: String,
+    icon: ImageVector,
+    containerColor: Color,
+    contentColor: Color,
 ) {
     Card(
-        modifier = modifier
-            .padding(5.dp)
-            .fillMaxWidth(),
-        colors = CardDefaults.cardColors(containerColor = backgroundColor),
-        shape = RoundedCornerShape(22.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        modifier = modifier,
+        colors = CardDefaults.cardColors(containerColor = containerColor),
+        shape = RoundedCornerShape(24.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp),
+                .padding(20.dp)
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(
-                    imageVector = Icons.Outlined.LocalFireDepartment,
-                    contentDescription = null,
-                    modifier = Modifier.size(26.dp)
-                )
-                Spacer(Modifier.width(6.dp))
-                Text(
-                    "$streakDays",
-                    style = MaterialTheme.typography.headlineMedium.copy(color = textColor)
-                )
-            }
-
-            Text(
-                text,
-                color = textColor.copy(alpha = 0.8f),
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontWeight = FontWeight.Bold
-                )
-            )
-        }
-
-
-        if (streakIcon != null) {
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(8.dp),
-                contentAlignment = imageAlignment
+                    .size(48.dp)
+                    .clip(CircleShape)
+                    .background(contentColor.copy(alpha = 0.2f)),
+                contentAlignment = Alignment.Center
             ) {
-                if (dropShadow) {
-                    Image(
-                        painter = streakIcon,
-                        contentDescription = "Outline",
-                        modifier = Modifier.size(105.dp),
-                        colorFilter = ColorFilter.tint(dropShadowColor)
-                    )
-                }
-                Image(
-                    painter = streakIcon,
-                    contentDescription = "Image",
-                    modifier = Modifier.size(if (dropShadow) 84.dp else 105.dp)
+                Icon(
+                    imageVector = icon,
+                    contentDescription = "Streak Icon",
+                    tint = contentColor,
+                    modifier = Modifier.size(28.dp)
                 )
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Text(
+                text = streakDays.toString(),
+                style = MaterialTheme.typography.displayMedium.copy(fontWeight = FontWeight.Bold),
+                color = contentColor
+            )
+
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelLarge,
+                color = contentColor.copy(alpha = 0.8f)
+            )
         }
     }
 }
