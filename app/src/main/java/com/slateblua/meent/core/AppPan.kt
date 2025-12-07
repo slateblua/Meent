@@ -26,7 +26,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.slateblua.meent.feature.dashboard.DashboardScreen
-import com.slateblua.meent.feature.focuslimits.FocusLimitsScreen
+import com.slateblua.meent.feature.focuslimits.FocusScreen
 import com.slateblua.meent.feature.welcome.OnboardingScreen
 import com.slateblua.meent.feature.reports.ReportsScreen
 import com.slateblua.meent.feature.preferences.SettingsScreen
@@ -123,7 +123,7 @@ fun AppContentPan(nacController: NavHostController) {
             DashboardScreen()
         }
         composable(FOCUS_LIMITS) {
-            FocusLimitsScreen()
+            FocusScreen()
         }
         composable(REPORTS) {
             ReportsScreen()
