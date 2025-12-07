@@ -129,7 +129,7 @@ fun AppContentPan(nacController: NavHostController) {
             ReportsScreen()
         }
         composable(SETTINGS) {
-            SettingsScreen(navController = nacController)
+            SettingsScreen()
         }
     }
 }
